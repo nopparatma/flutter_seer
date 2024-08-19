@@ -13,6 +13,12 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   @override
+  void initState() {
+    super.initState();
+    debugPrint("SearchPage");
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ListView.builder(
       controller: widget.scrollController,

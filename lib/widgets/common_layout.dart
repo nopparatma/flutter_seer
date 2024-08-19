@@ -64,27 +64,29 @@ class _CommonLayoutState extends State<CommonLayout> {
 
   @override
   Widget build(BuildContext context) {
-    final double bottomNavHeight = _isBottomNavVisible ? kBottomNavigationBarHeight + MediaQuery.of(context).padding.bottom : 0;
     final double appBarHeight = _isBottomNavVisible ? kToolbarHeight + MediaQuery.of(context).padding.top : kToolbarHeight;
+    final double bottomNavHeight = _isBottomNavVisible ? kBottomNavigationBarHeight + MediaQuery.of(context).padding.bottom : 0;
 
     return Scaffold(
       backgroundColor: colorPurple900,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(appBarHeight),
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 100),
+          duration: const Duration(milliseconds: 200),
           height: appBarHeight,
           child: AppBar(
-            title: Text(
-              widget.menus[widget.currentSelectPage].label,
-              style: Theme.of(context).textTheme.large,
+            title: Center(
+              child: Text(
+                _isBottomNavVisible ? widget.menus[widget.currentSelectPage].label : "",
+                style: Theme.of(context).textTheme.large,
+              ),
             ),
           ),
         ),
       ),
       body: widget.menus[widget.currentSelectPage].body,
       bottomNavigationBar: AnimatedContainer(
-        duration: const Duration(milliseconds: 100),
+        duration: const Duration(milliseconds: 200),
         height: bottomNavHeight,
         child: Wrap(
           children: [

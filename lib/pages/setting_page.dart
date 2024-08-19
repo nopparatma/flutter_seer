@@ -16,6 +16,12 @@ class SettingPage extends StatefulWidget {
 
 class _SettingPageState extends State<SettingPage> {
   @override
+  void initState() {
+    super.initState();
+    debugPrint("SettingPage");
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ListView.builder(
       controller: widget.scrollController,
