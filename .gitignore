@@ -1,0 +1,54 @@
+# Flutter/Dart
+*.log
+.pub-cache/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub/
+.buildlog/
+.dart_tool/
+.idea/
+.vscode/
+.project
+*.iml
+
+# Build outputs
+build/
+ios/Flutter/.last_build_id
+.android/
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# iOS
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/Flutter.framework/
+ios/Flutter/Flutter.podspec
+ios/Runner.xcworkspace/
+ios/DerivedData/
+ios/.dart_tool/
+ios/.vscode/
+ios/Podfile.lock
+ios/.generated/
+
+# Android
+android/.gradle/
+android/app/build/
+android/gradle/
+android/local.properties
+android/app/*.iml
+android/key.properties
+android/.generated/
+
+# Firebase or other backend credentials
+*.key.json
+*.firebaseauth.json
+
+# Flutter Environment files
+.env
+.env.*
+
+# Miscellaneous
+*.DS_Store
+*.swp
+*.swo
