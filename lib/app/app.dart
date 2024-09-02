@@ -14,23 +14,26 @@ class MainApplication extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      translations: TranslationService(),
-      locale: const Locale('th', 'TH'),
-      fallbackLocale: const Locale('th', 'TH'),
-      theme: ThemeData(
-        fontFamily: 'Cloud',
-        textTheme: const TextTheme(
-          displaySmall: TextStyle(color: Colors.white),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+      child: GetMaterialApp(
+        translations: TranslationService(),
+        locale: const Locale('th', 'TH'),
+        fallbackLocale: const Locale('th', 'TH'),
+        theme: ThemeData(
+          fontFamily: 'Cloud',
+          textTheme: const TextTheme(
+            displaySmall: TextStyle(color: Colors.white),
+          ),
+          appBarTheme: const AppBarTheme(
+            backgroundColor: colorPurple800,
+            surfaceTintColor: colorPurple800,
+            foregroundColor: Colors.white,
+          ),
         ),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: colorPurple800,
-          surfaceTintColor: colorPurple800,
-          foregroundColor: Colors.white,
-        ),
+        getPages: AppRouter.routes,
+        home: const MainPage(),
       ),
-      getPages: AppRouter.routes,
-      home: const MainPage(),
     );
   }
 }

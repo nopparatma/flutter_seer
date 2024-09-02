@@ -12,6 +12,7 @@ class CommonLayout extends StatefulWidget {
   final bool isShowBottomNavigationBar;
   final String? title;
   final Widget? body;
+  final bool isAlwaysShowAppBar;
 
   const CommonLayout({
     super.key,
@@ -22,11 +23,11 @@ class CommonLayout extends StatefulWidget {
     this.isShowBottomNavigationBar = false,
     this.title,
     this.body,
+    this.isAlwaysShowAppBar = false,
   }) : menus = menus ?? const [];
 
   @override
-  // ignore: library_private_types_in_public_api
-  _CommonLayoutState createState() => _CommonLayoutState();
+  createState() => _CommonLayoutState();
 }
 
 class _CommonLayoutState extends State<CommonLayout> {
@@ -70,7 +71,7 @@ class _CommonLayoutState extends State<CommonLayout> {
 
   @override
   Widget build(BuildContext context) {
-    final double appBarHeight = _isBottomNavVisible ? kToolbarHeight + MediaQuery.of(context).padding.top : kToolbarHeight;
+    final double appBarHeight = widget.isAlwaysShowAppBar || _isBottomNavVisible ? kToolbarHeight + MediaQuery.of(context).padding.top : kToolbarHeight;
     final double bottomNavHeight = _isBottomNavVisible ? kBottomNavigationBarHeight + MediaQuery.of(context).padding.bottom : 0;
 
     return Scaffold(
@@ -80,7 +81,7 @@ class _CommonLayoutState extends State<CommonLayout> {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           height: appBarHeight,
-          child: _isBottomNavVisible
+          child: widget.isAlwaysShowAppBar || _isBottomNavVisible
               ? AppBar(
                   title: Text(
                     _overrideTextAppBar(),

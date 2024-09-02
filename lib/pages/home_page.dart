@@ -59,47 +59,50 @@ class _HomePageState extends State<HomePage> {
           itemBuilder: (context, index, realIdx) {
             CardItem cardTypeItem = cardTypes[index];
 
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-              child: Stack(
-                children: [
-                  Positioned.fill(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                        image: DecorationImage(
-                          image: AssetImage(cardTypeItem.imagePath),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+            return GestureDetector(
+              onTap: () => onTapCardTypeItem(cardTypeItem),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                child: Stack(
+                  children: [
+                    Positioned.fill(
                       child: Container(
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                          gradient: LinearGradient(
-                            colors: [Color.fromARGB(200, 0, 0, 0), Color.fromARGB(0, 0, 0, 0)],
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter,
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                          image: DecorationImage(
+                            image: AssetImage(cardTypeItem.imagePath),
+                            fit: BoxFit.cover,
                           ),
                         ),
-                        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              cardTypeItem.label,
-                              style: Theme.of(context).textTheme.large?.copyWith(fontWeight: FontWeight.bold),
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                            gradient: LinearGradient(
+                              colors: [Color.fromARGB(200, 0, 0, 0), Color.fromARGB(0, 0, 0, 0)],
+                              begin: Alignment.bottomCenter,
+                              end: Alignment.topCenter,
                             ),
-                            Text(
-                              cardTypeItem.desc,
-                              style: Theme.of(context).textTheme.normal?.copyWith(color: Colors.grey),
-                            )
-                          ],
+                          ),
+                          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                cardTypeItem.label,
+                                style: Theme.of(context).textTheme.large?.copyWith(fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                cardTypeItem.desc,
+                                style: Theme.of(context).textTheme.normal?.copyWith(color: Colors.grey),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             );
           },

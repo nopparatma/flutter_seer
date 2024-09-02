@@ -2,7 +2,6 @@ import 'package:flutter_seer/pages/card_detail_page.dart';
 import 'package:flutter_seer/pages/card_list_page.dart';
 import 'package:flutter_seer/pages/splash_page.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
 
 import 'app_logger.dart';
 

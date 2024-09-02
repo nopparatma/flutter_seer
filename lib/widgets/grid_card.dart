@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_seer/models/view/card_type_item.dart';
+import 'package:flutter_seer/shared/custom_text_theme.dart';
 
 class GridCard extends StatelessWidget {
   final List<CardItem> listCards;
   final Function(CardItem) onTapItem;
+  final double childAspectRatio;
 
   const GridCard({
     super.key,
     required this.listCards,
     required this.onTapItem,
+    this.childAspectRatio = 1.5
   });
 
   @override
@@ -18,9 +21,9 @@ class GridCard extends StatelessWidget {
         GridView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: 1.5,
+            childAspectRatio: childAspectRatio,
             crossAxisSpacing: 12.0,
             mainAxisSpacing: 12.0,
           ),
@@ -30,10 +33,11 @@ class GridCard extends StatelessWidget {
             return GestureDetector(
               onTap: () => onTapItem(item),
               child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
                   image: DecorationImage(
-                    image: AssetImage(item.imagePath),
+                    // image: AssetImage(item.imagePath),
+                    image: NetworkImage('https://static.wixstatic.com/media/2c520b_799e0d1497524e1e84261a96a317b345~mv2.png/v1/fit/w_517,h_701,q_90/2c520b_799e0d1497524e1e84261a96a317b345~mv2.webp'),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -51,11 +55,9 @@ class GridCard extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       item.label,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.normal?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
                     ),
                   ),
                 ),
