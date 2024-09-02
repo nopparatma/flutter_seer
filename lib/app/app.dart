@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_seer/app/app_router.dart';
 import 'package:flutter_seer/models/view/menu_item.dart';
 import 'package:flutter_seer/pages/home_page.dart';
 import 'package:flutter_seer/pages/search_page.dart';
@@ -25,8 +26,10 @@ class MainApplication extends StatelessWidget {
         appBarTheme: const AppBarTheme(
           backgroundColor: colorPurple800,
           surfaceTintColor: colorPurple800,
+          foregroundColor: Colors.white,
         ),
       ),
+      getPages: AppRouter.routes,
       home: const MainPage(),
     );
   }
@@ -70,6 +73,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return CommonLayout(
+      isShowBottomNavigationBar: true,
       onTapChangePage: _onTapChangePage,
       currentSelectPage: _currentSelectPage,
       scrollController: _scrollController,

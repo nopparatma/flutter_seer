@@ -5,18 +5,24 @@ import 'package:flutter_seer/shared/colors.dart';
 import 'package:flutter_seer/shared/custom_text_theme.dart';
 
 class CommonLayout extends StatefulWidget {
-  final Function(int) onTapChangePage;
-  final int currentSelectPage;
   final ScrollController scrollController;
+  final Function(int)? onTapChangePage;
+  final int currentSelectPage;
   final List<MenuItem> menus;
+  final bool isShowBottomNavigationBar;
+  final String? title;
+  final Widget? body;
 
   const CommonLayout({
     super.key,
-    required this.onTapChangePage,
-    required this.currentSelectPage,
     required this.scrollController,
-    required this.menus,
-  });
+    this.onTapChangePage,
+    this.currentSelectPage = 0,
+    List<MenuItem>? menus,
+    this.isShowBottomNavigationBar = false,
+    this.title,
+    this.body,
+  }) : menus = menus ?? const [];
 
   @override
   // ignore: library_private_types_in_public_api
@@ -74,33 +80,51 @@ class _CommonLayoutState extends State<CommonLayout> {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           height: appBarHeight,
-          child: AppBar(
-            title: Center(
-              child: Text(
-                _isBottomNavVisible ? widget.menus[widget.currentSelectPage].label : "",
-                style: Theme.of(context).textTheme.large,
+          child: _isBottomNavVisible
+              ? AppBar(
+                  title: Text(
+                    _overrideTextAppBar(),
+                    style: Theme.of(context).textTheme.large,
+                  ),
+                )
+              : null,
+        ),
+      ),
+      body: _overrideBody(),
+      bottomNavigationBar: widget.isShowBottomNavigationBar
+          ? AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              height: bottomNavHeight,
+              child: Wrap(
+                children: [
+                  BottomNavigationBar(
+                    items: bottomMenus,
+                    currentIndex: widget.currentSelectPage,
+                    backgroundColor: colorPurple800,
+                    selectedItemColor: colorPurple100,
+                    unselectedItemColor: colorPurpleGray,
+                    onTap: widget.onTapChangePage,
+                  )
+                ],
               ),
-            ),
-          ),
-        ),
-      ),
-      body: widget.menus[widget.currentSelectPage].body,
-      bottomNavigationBar: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        height: bottomNavHeight,
-        child: Wrap(
-          children: [
-            BottomNavigationBar(
-              items: bottomMenus,
-              currentIndex: widget.currentSelectPage,
-              backgroundColor: colorPurple800,
-              selectedItemColor: colorPurple100,
-              unselectedItemColor: colorPurpleGray,
-              onTap: widget.onTapChangePage,
             )
-          ],
-        ),
-      ),
+          : null,
     );
+  }
+
+  String _overrideTextAppBar() {
+    if (widget.title != null) {
+      return widget.title ?? '';
+    }
+
+    return widget.menus[widget.currentSelectPage].label;
+  }
+
+  Widget _overrideBody() {
+    if (widget.body != null) {
+      return widget.body ?? Container();
+    }
+
+    return widget.menus[widget.currentSelectPage].body;
   }
 }

@@ -1,9 +1,9 @@
-class CardTypeItem {
+class CardItem {
   String label;
   String desc;
   String imagePath;
 
-  CardTypeItem({
+  CardItem({
     required this.label,
     required this.desc,
     required this.imagePath,

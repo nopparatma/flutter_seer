@@ -1,7 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_seer/app/app_router.dart';
 import 'package:flutter_seer/models/view/card_type_item.dart';
 import 'package:flutter_seer/shared/custom_text_theme.dart';
+import 'package:flutter_seer/widgets/grid_card.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
   final ScrollController scrollController;
@@ -15,20 +18,26 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   // List of images to display in the carousel
-  final List<CardTypeItem> cardTypes = [
-    CardTypeItem(label: 'Midnight Tarot', desc: 'Discover Your Fate', imagePath: 'assets/images/midnight_tarot.png'),
-    CardTypeItem(label: 'Angel Cards', desc: 'Discover Your Fate', imagePath: 'assets/images/angel_cards.png'),
-    CardTypeItem(label: 'Gypsy Cards', desc: 'Discover Your Fate', imagePath: 'assets/images/gypsy_cards.png'),
-    CardTypeItem(label: 'Kipper Cards', desc: 'Discover Your Fate', imagePath: 'assets/images/kipper_cards.png'),
-    CardTypeItem(label: 'Lenormand Cards', desc: 'Discover Your Fate', imagePath: 'assets/images/lenormand_cards.png'),
-    CardTypeItem(label: 'Oracle Cards', desc: 'Discover Your Fate', imagePath: 'assets/images/oracle_cards.png'),
-    CardTypeItem(label: 'Tarot Cards', desc: 'Discover Your Fate', imagePath: 'assets/images/tarot_cards.png'),
+  final List<CardItem> cardTypes = [
+    CardItem(label: 'Midnight Tarot', desc: 'Discover Your Fate', imagePath: 'assets/images/midnight_tarot.png'),
+    CardItem(label: 'Angel Cards', desc: 'Discover Your Fate', imagePath: 'assets/images/angel_cards.png'),
+    CardItem(label: 'Gypsy Cards', desc: 'Discover Your Fate', imagePath: 'assets/images/gypsy_cards.png'),
+    CardItem(label: 'Kipper Cards', desc: 'Discover Your Fate', imagePath: 'assets/images/kipper_cards.png'),
+    CardItem(label: 'Lenormand Cards', desc: 'Discover Your Fate', imagePath: 'assets/images/lenormand_cards.png'),
+    CardItem(label: 'Oracle Cards', desc: 'Discover Your Fate', imagePath: 'assets/images/oracle_cards.png'),
+    CardItem(label: 'Tarot Cards', desc: 'Discover Your Fate', imagePath: 'assets/images/tarot_cards.png'),
   ];
 
   @override
   void initState() {
     super.initState();
-    debugPrint("HomePage");
+  }
+
+  void onTapCardTypeItem(CardItem item) {
+    Get.toNamed(
+      RoutePath.cardList,
+      arguments: {'titleCardType': item.label},
+    );
   }
 
   @override
@@ -48,7 +57,7 @@ class _HomePageState extends State<HomePage> {
             // height: 300,
           ),
           itemBuilder: (context, index, realIdx) {
-            CardTypeItem cardTypeItem = cardTypes[index];
+            CardItem cardTypeItem = cardTypes[index];
 
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
@@ -81,7 +90,10 @@ class _HomePageState extends State<HomePage> {
                               cardTypeItem.label,
                               style: Theme.of(context).textTheme.large?.copyWith(fontWeight: FontWeight.bold),
                             ),
-                            Text(cardTypeItem.desc, style: Theme.of(context).textTheme.normal?.copyWith(color: Colors.grey))
+                            Text(
+                              cardTypeItem.desc,
+                              style: Theme.of(context).textTheme.normal?.copyWith(color: Colors.grey),
+                            )
                           ],
                         ),
                       ),
@@ -125,55 +137,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildCardTypeItemGrid() {
-    return GridView.builder(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 1.5,
-        crossAxisSpacing: 12.0,
-        mainAxisSpacing: 12.0,
-      ),
-      itemCount: cardTypes.length,
-      itemBuilder: (context, index) {
-        CardTypeItem cardTypeItem = cardTypes[index];
-        return GestureDetector(
-          onTap: () {
-            // Handle tap event here if needed
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-              image: DecorationImage(
-                image: AssetImage(cardTypeItem.imagePath),
-                fit: BoxFit.cover,
-              ),
-            ),
-            child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                gradient: LinearGradient(
-                  colors: [Color.fromARGB(200, 0, 0, 0), Color.fromARGB(0, 0, 0, 0)],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                ),
-              ),
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  cardTypeItem.label,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        );
-      },
+    return GridCard(
+      listCards: cardTypes,
+      onTapItem: (item) => onTapCardTypeItem(item),
     );
   }
 }
